@@ -1,10 +1,7 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <!--<meta http-equiv="X-UA-Compatible="IE=edge">-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Question List</title>
 
@@ -26,7 +23,6 @@
         <!-- Toastr JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-        <!-- Custom CSS to make the footer fixed -->
         <style>
             body {
                 padding: 0;
@@ -62,7 +58,7 @@
                             $(targetSelect).html(response);
                         },
                         error: function (xhr, status, error) {
-                            console.error("AJAX Error: ", status, error);  // Debug: Log any AJAX errors
+                            console.error("AJAX Error: ", status, error);
                         }
                     });
                 }
@@ -75,7 +71,6 @@
                     fetchLessons($(this).val(), '#popupLessonId');
                 });
 
-                // Fetch lessons on page load if subject is selected
                 if ($('#subjectId').val() !== "") {
                     fetchLessons($('#subjectId').val(), '#lessonId');
                 }
@@ -148,7 +143,11 @@
                         processData: false,
                         contentType: false,
                         success: function (response) {
-                            toastr.success("Questions imported successfully");
+                            if (response === "Questions imported successfully") {
+                                toastr.success(response);
+                            } else {
+                                toastr.error(response);
+                            }
                             $('#addQuestionModal').modal('hide');
                             $('#searchForm').submit();
                         },
@@ -158,8 +157,6 @@
                     });
                 });
             });
-
-
         </script>
     </head>
 
@@ -352,14 +349,9 @@
                 </div>
             </div>
         </div>
-
-
-
-
-        <!-- side bar có thể thu nhỏ khi màn hình nhỏ  -->
+        <!-- side bar c� th? thu nh? khi m�n h�nh nh?  -->
         <script src="js/script.js"></script>
         <script src="js/logout.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
 </html>
